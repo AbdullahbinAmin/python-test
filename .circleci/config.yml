@@ -1,24 +1,23 @@
 version: 2.1
 jobs:
-  build:  
+  build:
+    docker:
+      - image: circleci/python:3.6.4
     working_directory: ~/circleci-python
-  docker:
-    image: circle/python:3.6.4
-  steps:
+    steps:
       - checkout
       - run: /bin/python3 /home/abdullah/Python/main.py
   test:
-    working_directory: ~/circleci-python
     docker:
-      - image: circle/python:3.6.4
+      - image: circleci/python:3.6.4
+    working_directory: ~/circleci-python
     steps:
-      - checkout:
+      - checkout
       - run: /bin/python3 /home/abdullah/Python/main-test.py
-
 workflows:
   build_and_test:
     jobs:
-      - build:
+      - build
       - test:
           requires:
             - build
